@@ -17,15 +17,15 @@ class Throttle
         $this->logger = $logger;
         $this->logger->debug("");
         if ($throttleDelayMS < 1) {
-            $this->logger->error("SimpleThrottle\Throttle::__construct error: throttleDelayMS value must be >= 1", [$throttleDelayMS, $maxThrottleDelayMS]);
+            $this->logger->error("\aportela\SimpleThrottle\Throttle::__construct error: throttleDelayMS value must be >= 1", [$throttleDelayMS, $maxThrottleDelayMS]);
             throw new \InvalidArgumentException("throttleDelayMS param value must be >= 1");
         }
         if ($maxThrottleDelayMS <= $throttleDelayMS) {
-            $this->logger->error("SimpleThrottle\Throttle::__construct error: maxThrottleDelayMS value must be > {$throttleDelayMS}", [$throttleDelayMS, $maxThrottleDelayMS]);
+            $this->logger->error("\aportela\SimpleThrottle\Throttle::__construct error: maxThrottleDelayMS value must be > {$throttleDelayMS}", [$throttleDelayMS, $maxThrottleDelayMS]);
             throw new \InvalidArgumentException("maxThrottleDelayMS param value must be > {$throttleDelayMS}");
         }
         if ($throttleUsleepMS < 1) {
-            $this->logger->error("SimpleThrottle\Throttle::__construct error: throttleUsleepMS value must be >= 1", [$throttleDelayMS, $maxThrottleDelayMS]);
+            $this->logger->error("\aportela\SimpleThrottle\Throttle::__construct error: throttleUsleepMS value must be >= 1", [$throttleDelayMS, $maxThrottleDelayMS]);
             throw new \InvalidArgumentException("throttleUsleepMS param value must be >= 1");
         }
         $this->originalThrottleDelayMS = $throttleDelayMS;
@@ -44,7 +44,7 @@ class Throttle
      */
     public function increment(\aportela\SimpleThrottle\ThrottleDelayIncrementType $incrementType = \aportela\SimpleThrottle\ThrottleDelayIncrementType::MULTIPLY_BY_2): void
     {
-        $this->logger->debug("SimpleThrottle\Throttle::incrementThrottle");
+        $this->logger->debug("\aportela\SimpleThrottle\Throttle::incrementThrottle");
         if ($this->currentThrottleDelayMS != $this->maxThrottleDelayMS) {
             $increment = 0;
             switch ($incrementType) {
@@ -94,7 +94,7 @@ class Throttle
                 $this->currentThrottleDelayMS = $this->maxThrottleDelayMS;
             }
         } else {
-            $this->logger->notice("SimpleThrottle\Throttle::incrementThrottle reached maxThrottleDelayMS");
+            $this->logger->notice("\aportela\SimpleThrottle\Throttle::incrementThrottle reached maxThrottleDelayMS");
         }
     }
 
