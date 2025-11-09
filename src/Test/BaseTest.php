@@ -6,7 +6,7 @@ namespace aportela\SimpleThrottle\Test;
 
 require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
 
-class BaseTest extends \PHPUnit\Framework\TestCase
+abstract class BaseTest extends \PHPUnit\Framework\TestCase
 {
     protected static \Psr\Log\NullLogger $logger;
 
@@ -22,21 +22,15 @@ class BaseTest extends \PHPUnit\Framework\TestCase
      * Initialize the test case
      * Called for every defined test
      */
-    public function setUp(): void
-    {
-    }
+    protected function setUp(): void {}
 
     /**
      * Clean up the test case, called for every defined test
      */
-    public function tearDown(): void
-    {
-    }
+    protected function tearDown(): void {}
 
     /**
      * Clean up the whole test class
      */
-    public static function tearDownAfterClass(): void
-    {
-    }
+    public static function tearDownAfterClass(): void {}
 }

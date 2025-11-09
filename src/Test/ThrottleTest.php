@@ -6,7 +6,6 @@ namespace aportela\SimpleThrottle\Test;
 
 require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
 
-
 final class ThrottleTest extends \aportela\SimpleThrottle\Test\BaseTest
 {
     private const int MAX_MS_TIME_LAG = 50;
@@ -38,6 +37,7 @@ final class ThrottleTest extends \aportela\SimpleThrottle\Test\BaseTest
         $throttle = new \aportela\SimpleThrottle\Throttle(self::$logger, 1000, 5000, 10);
         // 1000 ms by default + 2 second increment = 3000
         $throttle->increment(\aportela\SimpleThrottle\ThrottleDelayIncrementType::INCREMENT_2_SECONDS);
+
         $start = intval(microtime(true) * 1000);
         $throttle->throttle();
         $end = intval(microtime(true) * 1000);
@@ -55,6 +55,7 @@ final class ThrottleTest extends \aportela\SimpleThrottle\Test\BaseTest
         $throttle->increment(\aportela\SimpleThrottle\ThrottleDelayIncrementType::INCREMENT_5_SECONDS);
         // reset to default (500 ms)
         $throttle->reset();
+
         $start = intval(microtime(true) * 1000);
         $throttle->throttle();
         $end = intval(microtime(true) * 1000);
