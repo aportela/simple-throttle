@@ -18,7 +18,6 @@ class Throttle
 
     public function __construct(protected \Psr\Log\LoggerInterface $logger, int $throttleDelayMS, int $maxThrottleDelayMS, int $throttleUsleepMS = 10)
     {
-        $this->logger->debug("");
         if ($throttleDelayMS < 1) {
             $this->logger->error(\aportela\SimpleThrottle\Throttle::class . '::__construct error: throttleDelayMS value must be >= 1', [$throttleDelayMS, $maxThrottleDelayMS]);
             throw new \InvalidArgumentException("throttleDelayMS param value must be >= 1");
