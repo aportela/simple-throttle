@@ -7,13 +7,13 @@ namespace aportela\SimpleThrottle;
 class Throttle
 {
     private int $originalThrottleDelayMS = 0;
-    
+
     private int $currentThrottleDelayMS = 0;
-    
+
     private int $lastThrottleTimestamp = 0;
-    
+
     private int $maxThrottleDelayMS = 0;
-    
+
     private int $throttleUsleepMS = 10;
 
     public function __construct(protected \Psr\Log\LoggerInterface $logger, int $throttleDelayMS, int $maxThrottleDelayMS, int $throttleUsleepMS = 10)
@@ -23,17 +23,17 @@ class Throttle
             $this->logger->error(\aportela\SimpleThrottle\Throttle::class . '::__construct error: throttleDelayMS value must be >= 1', [$throttleDelayMS, $maxThrottleDelayMS]);
             throw new \InvalidArgumentException("throttleDelayMS param value must be >= 1");
         }
-        
+
         if ($maxThrottleDelayMS <= $throttleDelayMS) {
             $this->logger->error(\aportela\SimpleThrottle\Throttle::class . '::__construct error: maxThrottleDelayMS value must be > ' . $throttleDelayMS, [$throttleDelayMS, $maxThrottleDelayMS]);
             throw new \InvalidArgumentException('maxThrottleDelayMS param value must be > ' . $throttleDelayMS);
         }
-        
+
         if ($throttleUsleepMS < 1) {
             $this->logger->error(\aportela\SimpleThrottle\Throttle::class . '::__construct error: throttleUsleepMS value must be >= 1', [$throttleDelayMS, $maxThrottleDelayMS]);
             throw new \InvalidArgumentException("throttleUsleepMS param value must be >= 1");
         }
-        
+
         $this->originalThrottleDelayMS = $throttleDelayMS;
         $this->currentThrottleDelayMS = $throttleDelayMS;
         $this->maxThrottleDelayMS = $maxThrottleDelayMS;
@@ -90,7 +90,7 @@ class Throttle
                     $increment =  1;
                     break;
             }
-            
+
             if ($this->currentThrottleDelayMS + $increment < $this->maxThrottleDelayMS) {
                 $this->currentThrottleDelayMS += $increment;
             } else {
@@ -120,7 +120,7 @@ class Throttle
                 usleep($this->throttleUsleepMS);
                 $currentTimestamp = intval(microtime(true) * 1000);
             }
-            
+
             $this->lastThrottleTimestamp = $currentTimestamp;
         }
     }
