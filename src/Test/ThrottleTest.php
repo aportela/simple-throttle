@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace aportela\SimpleThrottle\Test;
 
-require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
+require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
 
 
 final class ThrottleTest extends \aportela\SimpleThrottle\Test\BaseTest
 {
-    private const MAX_MS_TIME_LAG = 50;
+    private const int MAX_MS_TIME_LAG = 50;
 
     /**
      * Called once just like normal constructor
      */
+    #[\Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

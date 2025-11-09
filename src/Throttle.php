@@ -4,18 +4,14 @@ namespace aportela\SimpleThrottle;
 
 class Throttle
 {
-    protected \Psr\Log\LoggerInterface $logger;
-
     private int $originalThrottleDelayMS = 0;
     private int $currentThrottleDelayMS = 0;
     private int $lastThrottleTimestamp = 0;
     private int $maxThrottleDelayMS = 0;
     private int $throttleUsleepMS = 10;
 
-    public function __construct(\Psr\Log\LoggerInterface $logger, int $throttleDelayMS, int $maxThrottleDelayMS, int $throttleUsleepMS = 10)
+    public function __construct(protected \Psr\Log\LoggerInterface $logger, int $throttleDelayMS, int $maxThrottleDelayMS, int $throttleUsleepMS = 10)
     {
-        $this->logger = $logger;
-        $this->logger->debug("");
         if ($throttleDelayMS < 1) {
             $this->logger->error("\aportela\SimpleThrottle\Throttle::__construct error: throttleDelayMS value must be >= 1", [$throttleDelayMS, $maxThrottleDelayMS]);
             throw new \InvalidArgumentException("throttleDelayMS param value must be >= 1");
@@ -35,9 +31,7 @@ class Throttle
         $this->lastThrottleTimestamp = intval(microtime(true) * 1000);
     }
 
-    public function __destruct()
-    {
-    }
+    public function __destruct() {}
 
     /**
      * increment throttle ms delay
